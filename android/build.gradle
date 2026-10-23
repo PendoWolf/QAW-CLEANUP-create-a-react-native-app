@@ -18,4 +18,13 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        // Pendo Android SDK, required by rn-pendo-sdk
+        maven {
+            url = "https://software.mobile.pendo.io/artifactory/androidx-release"
+        }
+    }
+}
+
 apply plugin: "com.facebook.react.rootproject"

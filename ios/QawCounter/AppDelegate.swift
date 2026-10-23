@@ -1,4 +1,5 @@
 import UIKit
+import Pendo
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
@@ -30,6 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
 
     return true
+  }
+
+  // Opens Pendo pairing links (pendo-* URL scheme) used to connect the app to Pendo.
+  // AppDelegate extends UIResponder, so there is no superclass implementation to
+  // forward other URLs to; they are left unhandled, as before.
+  func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+  ) -> Bool {
+    if url.scheme?.range(of: "pendo") != nil {
+      PendoManager.shared().initWith(url)
+      return true
+    }
+    return false
   }
 }
 
