@@ -6,6 +6,22 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
  *
  * @type {import('@react-native/metro-config').MetroConfig}
  */
-const config = {};
+const defaultConfig = getDefaultConfig(__dirname);
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+const config = {
+  transformer: {
+    ...defaultConfig.transformer,
+    // Preserve class and function names in production bundles so the Pendo
+    // codeless solution can identify components.
+    minifierConfig: {
+      keep_classnames: true,
+      keep_fnames: true,
+      mangle: {
+        keep_classnames: true,
+        keep_fnames: true,
+      },
+    },
+  },
+};
+
+module.exports = mergeConfig(defaultConfig, config);
