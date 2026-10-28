@@ -17,6 +17,16 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { NavigationLibraryType, PendoSDK } from 'rn-pendo-sdk';
+
+PendoSDK.setup(
+  'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiI5OTQ5YzVjODczYWE4YmE1ODE0ZDE3OTJhNGNjYmVmYjYxNTg0MWZiZDU3NmRkNTQwYTFiNDhkN2E3NjdlODI4ZjQzYzdlNzcyMjkzOGRiZTk5MDYyZjIzNWIzYzNkNzk1MjE5NTllZWI2OTNkZDVkMjdmMzBmNTlhNWRiNjQ3OGM2YzNiN2ZhOGRlMTBlYjA0MjMzYTNhMjg3ZDdjOTdhYTQ0MmQ4ZjZhMTJhZDRiOWNhY2NkOGZhNmVmMDA2OWIuNjI3YzM0MDYzNjk4YWU1NTM2ZjM5ZTdiN2M3MDg2MWEuODY5MjYyZjM2YjdiZGE4OGQyYWNkZjViMDRiOTVlOTNiYTljMjUwZjJkNTZiN2VjMzBlZjNjZmI4ZWNlOGI2ZSJ9.N2Ejz-QYXc1cXUpBfRJWOyM7-yS44h2uf7pAw46j5pS1_03Q0lPEKd4_k4-k0xt8-d7oVguELLwAb2kqlQTZSOz-VroBBSGxPMmOsCZ6XGvR-QDGQegJihcKOQ0Y5EJXbsU9kUkUEvMJmGSo1voPhgOgN0kl0NgM3yEfc3z-59A',
+  { library: NavigationLibraryType.Other },
+);
+
+// The app has no sign-in or user identity, so start an anonymous Pendo
+// session (empty visitorId) at launch. B2C app: no account.
+PendoSDK.startSession('', '', {}, {});
 
 const STEP_OPTIONS = [1, 5, 10];
 
@@ -40,7 +50,10 @@ function Counter() {
     <View
       style={[
         styles.container,
-        { paddingTop: safeAreaInsets.top, paddingBottom: safeAreaInsets.bottom },
+        {
+          paddingTop: safeAreaInsets.top,
+          paddingBottom: safeAreaInsets.bottom,
+        },
       ]}
     >
       <Text style={styles.title}>QAW Counter</Text>

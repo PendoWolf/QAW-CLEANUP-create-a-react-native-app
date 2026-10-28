@@ -1,4 +1,5 @@
 import UIKit
+import Pendo
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
@@ -30,6 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
 
     return true
+  }
+
+  func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+  ) -> Bool {
+    if url.scheme?.range(of: "pendo") != nil {
+      PendoManager.shared().initWith(url)
+      return true
+    }
+    // AppDelegate has no superclass URL handler; other URLs remain unhandled.
+    return false
   }
 }
 
